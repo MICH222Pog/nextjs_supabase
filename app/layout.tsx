@@ -10,26 +10,8 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://daily-todo-task.vercel.app/"),
-
-	title: {
-		template: "%s | Daily Todo",
-		default: "Daily Todo",
-	},
-	authors: {
-		name: "chensokheng",
-	},
-	description:
-		"Build dashboard with role managemanet using next.js and supabase.",
-	openGraph: {
-		title: "Daily Todo",
-		description: "Build dashboard with next.js and supabase ",
-		url: "https://daily-todo-task.vercel.app/",
-		siteName: "Daily Todo",
-		images: "/og.png",
-		type: "website",
-	},
-	keywords: ["daily web coding", "chensokheng", "dailywebcoding"],
+	title: "Daily Books",
+	description: "A platform to manage your book collection",
 };
 
 export default function RootLayout({

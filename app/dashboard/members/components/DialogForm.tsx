@@ -29,7 +29,7 @@ export default function DailogForm({
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>
-						Make changes to your profile here. Click save when
+						Make changes to your profile here.
 					</DialogDescription>
 				</DialogHeader>
 				{form}

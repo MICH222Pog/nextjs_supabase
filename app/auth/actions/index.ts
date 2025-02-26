@@ -18,3 +18,12 @@ export async function logout() {
 	await supabase.auth.signOut();
 	redirect("/auth");
 }
+
+export async function login() {
+	const supabase = await createSupbaseServerClient();
+	await supabase.auth.signInWithOAuth({
+		provider: "google", // Change based on your auth provider
+	});
+	redirect("/dashboard"); // Redirect after login
+}
+

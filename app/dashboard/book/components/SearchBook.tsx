@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import React from "react";
 
-export default function SearchTodo() {
+export default function SearchBook() {
 	return (
 		<Input
 			placeholder="search by title,author"
