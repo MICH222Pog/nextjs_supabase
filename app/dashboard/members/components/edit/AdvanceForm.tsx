@@ -114,7 +114,7 @@ export default function AdvanceForm({ permission }: { permission: IPermission })
 									))}
 								</SelectContent>
 							</Select>
-							<FormDescription>Status "resigned" means the user no longer works here.</FormDescription>
+							<FormDescription>Status resigned means the user no longer works here.</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
