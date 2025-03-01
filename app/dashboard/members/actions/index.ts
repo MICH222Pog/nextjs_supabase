@@ -1,7 +1,8 @@
 "use server";
 
 import { readUserSession } from "@/lib/actions";
-import { createSupbaseAdmin, createSupbaseServerClient } from "@/lib/supabase";
+import { createSupbaseAdmin, createSupbaseServerClient, createSupbaseServerClientReadOnly } from "@/lib/supabase";
+import { IPermission } from "@/lib/types";
 import { revalidatePath, unstable_noStore } from "next/cache";
 
 export async function createMember(data: {
@@ -149,12 +150,9 @@ export async function updateMemberAccountById(
 
 
 export async function deleteMemberById(user_id: string) {
-	// admin only 
-	// call to supabase to delete member
-
 	const {data:userSession} = await readUserSession()
 
-	// prevent non user to create
+	
 	if(userSession.session?.user.user_metadata.role !== "admin"){
 		return JSON.stringify( {error: {message : "You are not allowed to do this"}});
 	}
@@ -181,8 +179,30 @@ export async function readMembers() {
 	const supabase = await createSupbaseServerClient()
 
 	return await supabase.from("permission").select("*, members(*)");
-
-	
-
-
 }
+
+export async function searchMembersByName(searchTerm: string) {
+	unstable_noStore();
+  
+	const supabase = await createSupbaseServerClient();
+  
+	let query = supabase
+    .from("permission")
+    .select("*, members!inner(*)"); 
+
+  if (searchTerm) {
+    query = query
+      .ilike("members.name", `%${searchTerm}%`)
+      .ilike("role", `%${searchTerm}%`);
+  }
+
+  const { data, error } = await query;
+  
+	if (error) {
+	  console.error("Error fetching members:", error);
+	  return [];
+	}
+  
+	return data;
+  }
+  

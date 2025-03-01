@@ -2,7 +2,7 @@ import React from "react";
 import { fetchUserBooks } from "../book/actions";
 import { readMembers } from "../members/actions";
 import { useUserStore } from "@/lib/store/user";
-import { cn } from "@/lib/utils";
+import { Box, Typography, Paper } from "@mui/material";
 
 export default async function Dashboard() {
     const { data: permissions } = await readMembers();
@@ -13,46 +13,56 @@ export default async function Dashboard() {
     const usersOnly = (permissions || []).filter((permission) => permission.role === "user");
 
     return (
-        <div className="max-w-2xl mx-auto p-6 text-white">
-            <h1 className="text-3xl font-bold mb-6">
+        <Box maxWidth="md" mx="auto" p={3} color="white">
+            <Typography variant="h4" fontWeight="bold" mb={3}>
                 {isAdmin ? "👥 User List" : "📚 My Books"}
-            </h1>
+            </Typography>
 
             {isAdmin ? (
                 usersOnly.length === 0 ? (
-                    <p className="text-gray-400 text-center py-4">No users found.</p>
+                    <Typography color="gray" textAlign="center" py={4}>
+                        No users found.
+                    </Typography>
                 ) : (
-                    <div className="space-y-4">
+                    <Box display="flex" flexDirection="column" gap={2}>
                         {usersOnly.map((permission, index) => (
-                            <div
-                                className="bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-700"
-                                key={index}
+                            <Paper 
+                                key={index} 
+                                sx={{ bgcolor: "#1E293B", p: 2, borderRadius: 2, border: "1px solid #334155" }}
                             >
-                                <h3 className="text-lg font-semibold">{permission.members.name}</h3>
-                                <p className="text-gray-400">{new Date(permission.created_at).toDateString()}</p>
-                            </div>
+                                <Typography variant="h6" fontWeight="bold" color="white">
+                                    {permission.members.name}
+                                </Typography>
+                                <Typography color="gray">
+                                    {new Date(permission.created_at).toDateString()}
+                                </Typography>
+                            </Paper>
                         ))}
-                    </div>
+                    </Box>
                 )
             ) : (
                 error ? (
-                    <p className="text-red-400 text-center mt-5">Error loading books: {error}</p>
+                    <Typography color="red" textAlign="center" mt={3}>
+                        Error loading books: {error}
+                    </Typography>
                 ) : books.length === 0 ? (
-                    <p className="text-gray-400">You have not selected any books yet.</p>
+                    <Typography color="gray">You have not selected any books yet.</Typography>
                 ) : (
-                    <div className="space-y-4">
+                    <Box display="flex" flexDirection="column" gap={2}>
                         {books.map((book) => (
-                            <div 
+                            <Paper 
                                 key={book.id} 
-                                className="bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-700"
+                                sx={{ bgcolor: "#1E293B", p: 2, borderRadius: 2, border: "1px solid #334155" }}
                             >
-                                <h3 className="text-lg font-semibold">{book.title}</h3>
-                                <p className="text-gray-300">{book.description}</p>
-                            </div>
+                                <Typography variant="h6" fontWeight="bold" color="white">
+                                    {book.title}
+                                </Typography>
+                                <Typography color="gray">{book.description}</Typography>
+                            </Paper>
                         ))}
-                    </div>
+                    </Box>
                 )
             )}
-        </div>
+        </Box>
     );
 }

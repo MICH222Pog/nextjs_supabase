@@ -27,7 +27,7 @@ export default function ReturnBook({ book_id }: { book_id: string }) {
     };
 
     return (
-        <Button onClick={handleSelect} disabled={isPending} variant="outline">
+        <Button onClick={handleSelect} disabled={isPending} variant="outline" className="!text-white">
             {isPending ? "Returning..." : "Return Book"}
         </Button>
     );

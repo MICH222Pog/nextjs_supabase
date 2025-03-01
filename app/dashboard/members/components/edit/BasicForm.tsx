@@ -13,13 +13,15 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
 import { IPermission } from "@/lib/types";
 import { updateMemberBasicById } from "../../actions";
 import { useTransition } from "react";
+
+// MUI Imports
+import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const FormSchema = z.object({
 	name: z.string().min(2, {
@@ -27,9 +29,8 @@ const FormSchema = z.object({
 	}),
 });
 
-export default function BasicForm({permission}: {permission: IPermission}) {
-
-	const [isPending, startTransition] = useTransition()
+export default function BasicForm({ permission }: { permission: IPermission }) {
+	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -40,50 +41,44 @@ export default function BasicForm({permission}: {permission: IPermission}) {
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
 		startTransition(async () => {
+			const { error } = JSON.parse(await updateMemberBasicById(permission.member_id, data));
 
-			const {error} = JSON.parse(await updateMemberBasicById(permission.member_id, data));
-
-			if(error?.message){
+			if (error?.message) {
 				toast({
 					title: "Failed to update",
 					description: (
 						<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-							<code className="text-white">
-								error?.message
-							</code>
+							<code className="text-white">{error?.message}</code>
 						</pre>
 					),
 				});
-			}else{
+			} else {
 				toast({
-					title: "Successfully update",
+					title: "Successfully updated",
 				});
 			}
-
-		})
-
-
-		
-
-
-
-		
+		});
 	}
 
 	return (
 		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="w-full space-y-6"
-			>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
 				<FormField
 					control={form.control}
 					name="name"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Display Name</FormLabel>
+							<FormLabel className="text-white">Display Name</FormLabel>
 							<FormControl>
-								<Input placeholder="shadcn" {...field} />
+								<TextField
+									{...field}
+									placeholder="shadcn"
+									variant="outlined"
+									fullWidth
+									InputProps={{
+										className: "border border-gray-600 rounded-md bg-transparent text-white",
+									}}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -91,13 +86,11 @@ export default function BasicForm({permission}: {permission: IPermission}) {
 				/>
 				<Button
 					type="submit"
-					className="flex gap-2 items-center w-full"
+					className="flex gap-2 items-center w-full border border-gray-600 hover:border-white"
 					variant="outline"
+					disabled={isPending}
 				>
-					Update{" "}
-					<AiOutlineLoading3Quarters
-						className={cn(" animate-spin", "hidden")}
-					/>
+					{isPending ? <CircularProgress size={20} color="inherit" /> : "Update"}
 				</Button>
 			</form>
 		</Form>

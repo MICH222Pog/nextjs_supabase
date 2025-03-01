@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React, { useTransition } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Box, Typography } from "@mui/material";
 
 export default function SignIn() {
 	const [isPending, startTransition] = useTransition();
@@ -14,22 +15,24 @@ export default function SignIn() {
 	};
 
 	return (
-		<div className="flex justify-center items-center min-h-screen bg-black">
-			<div className="bg-gray-800 shadow-lg border border-gray-700 rounded-lg p-6 text-center w-96 text-white">
-				<h2 className="text-lg font-semibold mb-4">Welcome to Daily Books</h2>
-				<p className="mb-4">Please login to start using the app.</p>
+		<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'black', px: 2 }}>
+			<Box sx={{ backgroundColor: '#1F2937', boxShadow: 3, border: '1px solid #374151', borderRadius: 2, p: 4, textAlign: 'center', width: '90%', maxWidth: 400, color: 'white' }}>
+				<Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, wordWrap: 'break-word' }}>
+					Welcome to Daily Books
+				</Typography>
+				<Typography sx={{ mb: 2, wordWrap: 'break-word' }}>Please login to start using the app.</Typography>
 				<form action={onSubmit}>
 					<Button
 						className="w-full flex items-center gap-2 bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
 						variant="outline"
 					>
-						Sign In{" "}
+						Sign In
 						<AiOutlineLoading3Quarters
 							className={cn("animate-spin", { hidden: !isPending })}
 						/>
 					</Button>
 				</form>
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 }

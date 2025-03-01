@@ -29,6 +29,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
 import { useTransition } from "react";
 import { error } from "console";
+import TextField from "@mui/material/TextField";
 
 const FormSchema = z
 	.object({
@@ -110,11 +111,17 @@ export default function MemberForm() {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input
-									placeholder="email@gmail.com"
-									type="email"
-									{...field}
-									onChange={field.onChange}
+							<TextField
+								{...field}
+								type="email"
+								placeholder="email@gmail.com"
+								variant="outlined"
+								className="w-full bg-transparent text-white"
+								InputProps={{
+									className:
+									  "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+									style: { color: "white" }, 
+								  }}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -128,10 +135,17 @@ export default function MemberForm() {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input
-									placeholder="******"
-									type="password"
-									onChange={field.onChange}
+							<TextField
+								{...field}
+								type="password"
+								placeholder="******"
+								variant="outlined"
+								className="w-full bg-transparent text-white"
+								InputProps={{
+									className:
+									  "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+									style: { color: "white" }, 
+								  }}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -145,10 +159,17 @@ export default function MemberForm() {
 						<FormItem>
 							<FormLabel>Confirm Password</FormLabel>
 							<FormControl>
-								<Input
-									placeholder="******"
-									type="password"
-									onChange={field.onChange}
+							<TextField
+								{...field}
+								type="password"
+								placeholder="******"
+								variant="outlined"
+								className="w-full bg-transparent text-white"
+								InputProps={{
+									className:
+									  "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+									style: { color: "white" }, 
+								  }}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -162,9 +183,16 @@ export default function MemberForm() {
 						<FormItem>
 							<FormLabel>Username</FormLabel>
 							<FormControl>
-								<Input
-									placeholder="display name"
-									onChange={field.onChange}
+							<TextField
+								{...field}
+								placeholder="display name"
+								variant="outlined"
+								className="w-full bg-transparent text-white"
+								InputProps={{
+									className:
+									  "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+									style: { color: "white" }, 
+								  }}
 								/>
 							</FormControl>
 							<FormDescription>
@@ -185,7 +213,7 @@ export default function MemberForm() {
 								defaultValue={field.value}
 							>
 								<FormControl>
-									<SelectTrigger>
+									<SelectTrigger className="w-full h-[35px] border border-gray-600 rounded-md bg-transparent">
 										<SelectValue placeholder="Select a role" />
 									</SelectTrigger>
 								</FormControl>
@@ -218,7 +246,7 @@ export default function MemberForm() {
 								defaultValue={field.value}
 							>
 								<FormControl>
-									<SelectTrigger>
+									<SelectTrigger className="w-full h-[35px] border border-gray-600 rounded-md bg-transparent">
 										<SelectValue placeholder="Select user status" />
 									</SelectTrigger>
 								</FormControl>

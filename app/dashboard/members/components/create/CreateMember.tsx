@@ -7,9 +7,14 @@ export default function CreateMember() {
 	return (
 		<DailogForm
 			id="create-trigger"
-			title="Create Member"
-			Trigger={<Button variant="outline">Create+</Button>}
+			title="Add Member"
+			Trigger={
+				<Button variant="outline" size="lg" className="px-6 py-3 text-lg">
+					Add
+				</Button>
+			}
 			form={<CreateForm />}
 		/>
 	);
 }
+

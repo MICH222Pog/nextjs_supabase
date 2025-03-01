@@ -1,5 +1,4 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,6 +15,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { createBook, updateBookById } from "../actions";
 import { useTransition, useEffect } from "react";
+import TextField from "@mui/material/TextField";
 
 const FormSchema = z.object({
 	title: z.string().min(2, { message: "Title must be at least 2 characters." }),
@@ -73,7 +73,7 @@ export default function BookForm({
 		await updateBookById(book.id, {
 			title: data.title,
 			description: data.description,
-			status: data.completed ? "available" : "not available",
+			status: data.completed ? "available" : "unavailable",
 		});
 		toast({ title: "Book Updated!" });
 	};
@@ -96,7 +96,17 @@ export default function BookForm({
 						<FormItem>
 							<FormLabel>Title</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter book title" type="text" {...field} />
+								<TextField
+									{...field}
+									type="text"
+									placeholder="Enter book title"
+									variant="outlined"
+									className="w-full bg-transparent text-white"
+									InputProps={{
+										className: "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+										style: { color: "white" },
+									}}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -109,7 +119,17 @@ export default function BookForm({
 						<FormItem>
 							<FormLabel>Description</FormLabel>
 							<FormControl>
-								<Input placeholder="Enter book description" type="text" {...field} />
+								<TextField
+									{...field}
+									type="text"
+									placeholder="Enter book description"
+									variant="outlined"
+									className="w-full bg-transparent text-white"
+									InputProps={{
+										className: "h-[40px] border border-gray-600 rounded-md px-3 text-white",
+										style: { color: "white" },
+									}}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -119,18 +139,19 @@ export default function BookForm({
 					control={form.control}
 					name="completed"
 					render={({ field }) => (
-						<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+						<FormItem>
 							<FormControl>
-								<Checkbox checked={field.value} onCheckedChange={field.onChange} />
+								<div className="flex items-center space-x-3 border border-gray-600 rounded-md p-4">
+									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
+									<FormLabel className="text-white">Available</FormLabel>
+								</div>
 							</FormControl>
-							<div className="space-y-1 leading-none">
-								<FormLabel>Available</FormLabel>
-							</div>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<Button type="submit" className="w-full" variant="outline">
-					{isEdit ? "Update Book" : "Create Book"}
+					{isEdit ? "Update Book" : "Add Book"}
 				</Button>
 			</form>
 		</Form>

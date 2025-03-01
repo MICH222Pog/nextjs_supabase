@@ -1,7 +1,7 @@
 "use server";
 
 import { readUserSession } from "@/lib/actions";
-import { createSupbaseAdmin, createSupbaseServerClient } from "@/lib/supabase";
+import { createSupbaseAdmin, createSupbaseServerClient, createSupbaseServerClientReadOnly } from "@/lib/supabase";
 import { revalidatePath, unstable_noStore } from "next/cache";
 
 export async function createBook(data: {
@@ -33,7 +33,7 @@ export async function updateBookById(
     data: {
         title?: string;
         description?: string;
-        status?: "available" | "not available";
+        status?: "available" | "unavailable";
     }
 ) {
     const { data: userSession } = await readUserSession();
@@ -177,3 +177,4 @@ export async function fetchUserBooks() {
 
     return { books };
 }
+

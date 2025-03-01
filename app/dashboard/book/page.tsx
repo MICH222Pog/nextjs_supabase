@@ -16,8 +16,9 @@ export default function Todo() {
 			<h1 className="text-3xl font-bold">BookList</h1>
 			{isAdmin && (
 				<div className="flex gap-2">
-					<Searchbook />
-					<CreateBook />
+					<div className="ml-auto">
+						<CreateBook />
+					</div>
 				</div>
 				)}
 			

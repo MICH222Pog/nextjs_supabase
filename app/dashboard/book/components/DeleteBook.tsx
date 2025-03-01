@@ -33,7 +33,7 @@ export default function DeleteBook({ book_id }: { book_id: string }) {
 
     return (
         <form action={onSubmit}>
-            <Button variant="outline" disabled={isPending}>
+            <Button variant="outline" disabled={isPending} className="!text-white">
                 <TrashIcon />
                 {isPending ? "Deleting..." : "Delete"}
             </Button>

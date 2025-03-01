@@ -30,12 +30,13 @@ export default function DeleteMember({user_id}: {user_id:string}) {
 
     
 
-    <form action = {onSubmit}>
-    <Button variant="outline">
-		<TrashIcon />
-		Delete
-	</Button>
+      <form action={onSubmit}>
+      <Button variant="outline" className="!text-white">
+        <TrashIcon />
+        Delete
+      </Button>
     </form>
+    
     
   );
 }

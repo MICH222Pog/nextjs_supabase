@@ -10,7 +10,7 @@ export default function EditBook({ book }: { book: { id: string; title: string; 
 			id={`update-trigger-${book.id}`}
 			title="Edit Book"
 			Trigger={
-				<Button variant="outline">
+				<Button variant="outline" className="!text-white">
 					<Pencil1Icon />
 					Edit
 				</Button>

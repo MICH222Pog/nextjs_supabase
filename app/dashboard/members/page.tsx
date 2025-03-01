@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import SearchMembers from "./components/SearchMembers";
 import CreateMember from "./components/create/CreateMember";
 import { useUserStore } from "@/lib/store/user";
+import CustomerList from "./components/CustomerList";
 
 export default function Members() {
-	// in development if you change need to refresh
 	
 	const user = useUserStore.getState().user;
 
@@ -18,11 +18,12 @@ export default function Members() {
 			<h1 className="text-3xl font-bold">Members</h1>
 			{isAdmin && (
 				<div className="flex gap-2">
-				<SearchMembers />
-				<CreateMember />
+				
+				<div className="ml-auto">
+					<CreateMember />
+				</div>
 			</div>
 			)}
-			
 			<MemberTable />
 		</div>
 	);
